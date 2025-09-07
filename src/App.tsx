@@ -69,7 +69,7 @@ function App() {
   if (isConfirmed) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-teal-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-lg w-full text-center transform animate-bounce">
+        <div className="bg-white rounded-3xl shadow-2xl p-12 max-w-lg w-full text-center">
           <div className="inline-flex p-6 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full mb-8">
             <CheckCircle className="w-16 h-16 text-white" />
           </div>
@@ -115,7 +115,7 @@ function App() {
           stepTitles={stepTitles} 
         />
         
-        <div className="bg-white/60 backdrop-blur-sm rounded-3xl shadow-xl p-8 min-h-[600px] transition-all duration-500">
+        <div className="bg-white/60 backdrop-blur-sm rounded-2xl shadow-xl p-8 min-h-[600px] transition-all duration-500">
           {currentStep === 0 && (
             <Step1TypeSelection
               selectedType={selectedType}
