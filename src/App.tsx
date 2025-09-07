@@ -26,15 +26,16 @@ function App() {
   const [selectedTime, setSelectedTime] = useState('');
   const [isConfirmed, setIsConfirmed] = useState(false);
 
-  const stepTitles = ['Tipo', 'Área/Paquete', 'Paciente', 'Disponibilidad', 'Confirmar'];
+  // Nuevo orden: Disponibilidad antes de Paciente
+  const stepTitles = ['Tipo', 'Área/Paquete', 'Disponibilidad', 'Paciente', 'Confirmar'];
   const totalSteps = stepTitles.length;
 
   const canProceed = () => {
     switch (currentStep) {
       case 0: return selectedType !== '';
       case 1: return selectedArea !== '';
-      case 2: return selectedPatient !== null;
-      case 3: return selectedDate !== '' && selectedTime !== '';
+      case 2: return selectedDate !== '' && selectedTime !== ''; // primero fecha/hora
+      case 3: return selectedPatient !== null;                   // luego paciente
       case 4: return true;
       default: return false;
     }
@@ -116,6 +117,7 @@ function App() {
         />
         
         <div className="bg-white/60 backdrop-blur-sm rounded-2xl shadow-xl p-8 min-h-[600px] transition-all duration-500">
+          {/* Paso 0: Tipo */}
           {currentStep === 0 && (
             <Step1TypeSelection
               selectedType={selectedType}
@@ -123,6 +125,7 @@ function App() {
             />
           )}
           
+          {/* Paso 1: Área/Paquete */}
           {currentStep === 1 && (
             <Step2AreaSelection
               selectedType={selectedType}
@@ -131,14 +134,8 @@ function App() {
             />
           )}
           
+          {/* Paso 2: Disponibilidad (fecha/hora) */}
           {currentStep === 2 && (
-            <Step3PatientSelection
-              selectedPatient={selectedPatient}
-              onPatientSelect={setSelectedPatient}
-            />
-          )}
-          
-          {currentStep === 3 && (
             <Step4Availability
               selectedType={selectedType}
               selectedArea={selectedArea}
@@ -149,6 +146,15 @@ function App() {
             />
           )}
           
+          {/* Paso 3: Paciente */}
+          {currentStep === 3 && (
+            <Step3PatientSelection
+              selectedPatient={selectedPatient}
+              onPatientSelect={setSelectedPatient}
+            />
+          )}
+          
+          {/* Paso 4: Confirmar */}
           {currentStep === 4 && (
             <Step5Confirmation
               selectedType={selectedType}
